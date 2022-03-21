@@ -1,7 +1,15 @@
 package main
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
-func TestReadSignature(t *testing.T) {
-
+func Test(t *testing.T) {
+	sc, err := New("helpshift.csv")
+	if err != nil {
+		panic(err)
+	}
+	data := sc.Decompress()
+	fmt.Println(string(data))
 }
