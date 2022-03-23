@@ -1,6 +1,6 @@
 // Credit: https://github.com/jeanbmar/sc-compression/blob/master/src/sc-compression.js
 
-package main
+package ScCompression
 
 import (
 	"bytes"
