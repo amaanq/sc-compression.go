@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/kjk/lzma"
+	"github.com/ulikunitz/xz/lzma"
 )
 
 type Signature int
@@ -73,15 +73,17 @@ func (s *ScCompression) decompressLZMA() []byte {
 		buf = append(append(buf, []byte{0x00, 0x00, 0x00, 0x00}...), s.buffer[9:]...)
 		s.buffer = buf
 	}
-	uncompressedBuf := make([]byte, uncompressedSize)
-	n, err := lzma.NewReader(bytes.NewReader(s.buffer)).Read(uncompressedBuf)
+
+	reader, err := lzma.NewReader(bytes.NewReader(s.buffer))
 	if err != nil {
 		panic(err)
 	}
-	if n != int(uncompressedSize) {
-		panic("bad value read")
+
+	if uncompressedBuf, err := ioutil.ReadAll(reader); err != nil {
+		panic(err)
+	} else {
+		return uncompressedBuf
 	}
-	return uncompressedBuf
 }
 
 func (s *ScCompression) decompressSC() []byte {
