@@ -2,7 +2,7 @@
 
 ## **Installation**
 ```go
-go get -u github.com/amaanq/sc-compression.go
+go get -u github.com/amaanq/sc-compression
 ```
 <br />
 
