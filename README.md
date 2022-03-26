@@ -15,7 +15,7 @@ import (
     "ioutil"
     "os"
 
-    "github.com/amaanq/sc-compression.go"
+    "github.com/amaanq/sc-compression"
 )
 
 func main() {
