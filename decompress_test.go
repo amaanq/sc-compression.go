@@ -8,7 +8,7 @@ import (
 )
 
 func Test(t *testing.T) {
-	fd, err := os.OpenFile("coc/assets/logic/achievements.csv", os.O_RDWR, 0666)
+	fd, err := os.Open("coc/assets/logic/achievements.csv")
 	if err != nil {
 		panic(err)
 	}
@@ -22,9 +22,16 @@ func Test(t *testing.T) {
 	}
 
 	// write data to file
-	by, err := ioutil.ReadAll(data)
+	data_bytes, err := ioutil.ReadAll(data)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(by))
+	fmt.Println(string(data_bytes))
+
+	decompFile, err := os.Create("coc/assets/logic/achievements_decompressed.csv")
+	if err != nil {
+		panic(err)
+	}
+	defer decompFile.Close()
+	decompFile.Write(data_bytes)
 }
